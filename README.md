@@ -4,6 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-Browser%20Rendering-F38020?logo=cloudflare)](https://developers.cloudflare.com/browser-rendering/)
+[![Trigger](https://img.shields.io/badge/trigger-%2Fez_or_ez--crawl-8A2BE2?style=for-the-badge)](SKILL.md)
 
 給 Claude 一個網址，它會自動用 Cloudflare 的 headless browser 爬完整站，回傳 Markdown / HTML / JSON。靜態站、SPA、JS 動態渲染都吃得下。
 
