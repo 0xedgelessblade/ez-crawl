@@ -3,6 +3,9 @@
 .env.local
 .env.*.local
 
+# Dev log (local only, not for public)
+.dev-log.md
+
 # Crawl results (can be large)
 results/
 *.json
