@@ -1,0 +1,12 @@
+{
+  "_comment": "SPA 網站（React/Next.js）— 必須 render: true，用 pattern 過濾範圍",
+  "url": "https://react.dev",
+  "limit": 100,
+  "render": true,
+  "formats": ["markdown"],
+  "rejectResourceTypes": ["image", "media", "font", "stylesheet"],
+  "options": {
+    "includePatterns": ["https://react.dev/reference/react/**"],
+    "excludePatterns": ["**/canary/**"]
+  }
+}

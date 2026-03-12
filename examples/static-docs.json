@@ -1,0 +1,11 @@
+{
+  "_comment": "靜態文件站 — render: false 省時間，免費方案友好",
+  "url": "https://docs.astro.build/en/getting-started/",
+  "limit": 30,
+  "render": false,
+  "formats": ["markdown"],
+  "rejectResourceTypes": ["image", "media", "font", "stylesheet"],
+  "options": {
+    "includePatterns": ["**/getting-started/**"]
+  }
+}

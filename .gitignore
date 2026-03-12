@@ -1,0 +1,21 @@
+# Credentials — never commit these
+.env
+.env.local
+.env.*.local
+
+# Crawl results (can be large)
+results/
+*.json
+!examples/*.json
+!package.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

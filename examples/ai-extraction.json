@@ -1,0 +1,26 @@
+{
+  "_comment": "AI 結構化擷取 — 用 Workers AI 自動提取產品資訊",
+  "url": "https://shop.example.com/products",
+  "limit": 50,
+  "render": true,
+  "formats": ["json"],
+  "jsonOptions": {
+    "prompt": "Extract the product name, price, description, and whether it is in stock",
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "product",
+        "properties": {
+          "name": "string",
+          "price": "number",
+          "currency": "string",
+          "description": "string",
+          "inStock": "boolean"
+        }
+      }
+    }
+  },
+  "options": {
+    "includePatterns": ["**/products/*"]
+  }
+}
