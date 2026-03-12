@@ -5,6 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-Browser%20Rendering-F38020?logo=cloudflare)](https://developers.cloudflare.com/browser-rendering/)
 [![Trigger](https://img.shields.io/badge/trigger-%2Fez_or_ez--crawl-8A2BE2?style=for-the-badge)](SKILL.md)
+[![English](https://img.shields.io/badge/📖_English-Quick_Start-white?style=for-the-badge)](#english)
 
 給 Claude 一個網址，它會自動用 Cloudflare 的 headless browser 爬完整站，回傳 Markdown / HTML / JSON。靜態站、SPA、JS 動態渲染都吃得下。
 
@@ -214,6 +215,15 @@ curl -X POST "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/bro
 
 **ez-crawl** is a Claude Code / Cowork Skill that crawls entire websites using Cloudflare's [`/crawl` REST API](https://developers.cloudflare.com/browser-rendering/rest-api/crawl-endpoint/). Give it a URL — it auto-discovers subpages (via sitemap + links), renders JavaScript if needed, and returns Markdown / HTML / JSON.
 
+### Features
+
+- **One-command crawl** — Give a URL, auto-discover subpages (sitemap + links), return full site content
+- **Smart rendering** — Auto-choose `render: true` (SPA) or `render: false` (static sites)
+- **Multiple formats** — Markdown, HTML, JSON (with AI structured extraction)
+- **Precise control** — URL pattern filtering, depth limits, resource blocking, caching
+- **Free-tier friendly** — Built-in quota-saving strategies to maximize your free plan
+- **Guided setup** — First-time use walks you through getting Account ID and API Token
+
 ### Quick Start
 
 ```bash
@@ -230,14 +240,51 @@ cp .env.example .env        # fill in CF_ACCOUNT_ID & CF_API_TOKEN
 2. **Account ID** — Dashboard homepage, right sidebar
 3. **API Token** — [Create Token](https://dash.cloudflare.com/profile/api-tokens) → Custom Token → Permission: Account → Browser Rendering → Edit
 
-### Key Options
+### Use as a Claude Skill
+
+Install into Claude Code or Cowork, then trigger with natural language:
+
+```
+crawl this site and save as markdown
+use Cloudflare crawl to grab the react.dev API docs
+crawl https://docs.astro.build and convert to markdown
+```
+
+**Claude Code:** `cp -r ez-crawl/ ~/.claude/skills/`
+
+**Cowork:** Copy the folder to your workspace's `.skills/skills/` directory.
+
+### Use as Standalone Scripts
+
+Works without Claude — `scripts/crawl.sh` is a standalone bash script:
+
+```bash
+./scripts/crawl.sh <url> [options]
+```
 
 | Option | Description | Default |
 |--------|-------------|---------|
 | `--limit N` | Max pages to crawl | 10 |
 | `--render BOOL` | Enable JS rendering (set `true` for SPAs) | false |
+| `--formats JSON` | Output format | `["markdown"]` |
 | `--include PATTERN` | Only crawl matching URLs | — |
 | `--exclude PATTERN` | Skip matching URLs | — |
+| `--output DIR` | Results directory | results/ |
+| `--poll N` | Polling interval in seconds | 5 |
+
+### Examples
+
+**Static docs site** (no JS needed, saves browser time):
+```bash
+./scripts/crawl.sh https://docs.astro.build/en/getting-started/ \
+  --limit 30 --render false --include "**/getting-started/**"
+```
+
+**SPA with URL filtering** (React/Next.js, needs JS rendering):
+```bash
+./scripts/crawl.sh https://react.dev \
+  --limit 100 --render true --include "https://react.dev/reference/react/**"
+```
 
 ### Free Tier Limits
 
@@ -247,4 +294,21 @@ cp .env.example .env        # fill in CF_ACCOUNT_ID & CF_API_TOKEN
 | Crawl jobs | 5/day | Unlimited |
 | Pages per job | 100 | 100,000 |
 
-For full documentation in Traditional Chinese, see the sections above.
+**Tips to save quota:** use `render: false` for static sites, add `rejectResourceTypes` to block images/fonts, use `includePatterns` to narrow scope, use `maxAge` for caching.
+
+### Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| Empty results / all skipped | Check target site's robots.txt allows `CloudflareBrowserRenderingCrawler` |
+| `cancelled_due_to_limits` | Free quota exhausted — wait until tomorrow or upgrade to paid plan |
+| Slow crawling | Use `render: false`, add `rejectResourceTypes`, reduce `limit` |
+| Blocked by bot protection | /crawl cannot bypass WAF/Turnstile — only whitelist your own sites |
+| `verify.sh` says token invalid | Confirm token has Account → Browser Rendering → Edit permission |
+
+### References
+
+- [/crawl endpoint docs](https://developers.cloudflare.com/browser-rendering/rest-api/crawl-endpoint/)
+- [Browser Rendering limits](https://developers.cloudflare.com/browser-rendering/limits/)
+- [Browser Rendering pricing](https://developers.cloudflare.com/browser-rendering/platform/pricing/)
+- [REST API getting started](https://developers.cloudflare.com/browser-rendering/get-started/)
