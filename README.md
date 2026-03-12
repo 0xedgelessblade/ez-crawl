@@ -23,6 +23,8 @@
 
 ## 功能
 
+> **快速觸發：** 在 Claude 中輸入 `/ez` 或 `ez crawl` 即可啟動
+
 - **一鍵爬站** — 給一個 URL，自動發現子頁面（sitemap + 連結），回傳整站內容
 - **智能判斷** — 自動選擇 `render: true`（SPA）或 `render: false`（靜態站）
 - **多種輸出** — Markdown、HTML、JSON（含 AI 結構化擷取）
