@@ -20,6 +20,7 @@
 - [疑難排解](#疑難排解)
 - [參考資料](#參考資料)
 - [授權](#授權)
+- [English](#english)
 
 ## 功能
 
@@ -204,3 +205,46 @@ curl -X POST "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/bro
 ## 授權
 
 [MIT](LICENSE)
+
+---
+
+## English
+
+> **Trigger:** Type `/ez` or `ez crawl` in Claude to start crawling.
+
+**ez-crawl** is a Claude Code / Cowork Skill that crawls entire websites using Cloudflare's [`/crawl` REST API](https://developers.cloudflare.com/browser-rendering/rest-api/crawl-endpoint/). Give it a URL — it auto-discovers subpages (via sitemap + links), renders JavaScript if needed, and returns Markdown / HTML / JSON.
+
+### Quick Start
+
+```bash
+git clone https://github.com/0xedgelessblade/ez-crawl.git
+cd ez-crawl
+cp .env.example .env        # fill in CF_ACCOUNT_ID & CF_API_TOKEN
+./scripts/verify.sh          # verify credentials
+./scripts/crawl.sh https://docs.example.com --limit 50
+```
+
+### Get Your Credentials
+
+1. Sign up at [dash.cloudflare.com](https://dash.cloudflare.com) (free)
+2. **Account ID** — Dashboard homepage, right sidebar
+3. **API Token** — [Create Token](https://dash.cloudflare.com/profile/api-tokens) → Custom Token → Permission: Account → Browser Rendering → Edit
+
+### Key Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--limit N` | Max pages to crawl | 10 |
+| `--render BOOL` | Enable JS rendering (set `true` for SPAs) | false |
+| `--include PATTERN` | Only crawl matching URLs | — |
+| `--exclude PATTERN` | Skip matching URLs | — |
+
+### Free Tier Limits
+
+| | Workers Free | Workers Paid ($5/mo) |
+|---|---|---|
+| Browser time | 10 min/day | Pay-as-you-go |
+| Crawl jobs | 5/day | Unlimited |
+| Pages per job | 100 | 100,000 |
+
+For full documentation in Traditional Chinese, see the sections above.
