@@ -46,7 +46,7 @@
 ### 1. Clone
 
 ```bash
-git clone https://github.com/你的帳號/ez-crawl.git
+git clone https://github.com/0xedgelessblade/ez-crawl.git
 cd ez-crawl
 ```
 
