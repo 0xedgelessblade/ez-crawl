@@ -1,24 +1,48 @@
-# Credentials — never commit these
+# ─── Credentials (NEVER commit these) ───
 .env
 .env.local
 .env.*.local
 
-# Dev log (local only, not for public)
+# ─── Dev-only files ───
 .dev-log.md
 
-# Crawl results (can be large)
+# ─── Crawl results (can be large) ───
 results/
+pages/
 *.json
 !examples/*.json
 !package.json
 
-# OS files
+# ─── macOS ───
 .DS_Store
-Thumbs.db
+._*
+.Spotlight-V100
+.Trashes
 
-# Editor
+# ─── Windows ───
+Thumbs.db
+Desktop.ini
+
+# ─── Editor / IDE ───
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+*.sublime-project
+*.sublime-workspace
+
+# ─── Python ───
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ─── Misc ───
+*.log
+*.bak
+*.tmp
